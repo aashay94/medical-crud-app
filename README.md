@@ -23,7 +23,8 @@ LAB	INFINITY
 Salutation, name, gender, DOB, age, age Type, appointment date, phone number, Address, Billing details.
 
 Kindly review the above image.  Create form as per the above mock to save the patient details and their billing details.  As per that image you must place the respective UI control and wire them. Use the table mentioned above for medical billing list and slot availability. 
-        1). Create autocomplete search for billing list field and show the information from the above table “Medical Billing Master”. 
+        
+		1). Create autocomplete search for billing list field and show the information from the above table “Medical Billing Master”. 
 		
         2). On selecting any billing name from the autocomplete show the billing amount as per the mock.  
 		
@@ -39,6 +40,7 @@ Kindly review the above image.  Create form as per the above mock to save the pa
 Need to add below validations for the respective UI controls.
 
 ###Validations:
+
 1.1) On salutation change the gender should reflect automatically. For e.g.: Mr. should be Male and Mrs., Ms. should be female
 
 1.2) On DOB change the age & age type should reflect respectively and vice versa. 
