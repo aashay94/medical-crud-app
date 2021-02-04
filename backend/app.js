@@ -9,7 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 var mongoose = require("mongoose");
-mongoose.Promise = global.Promise;mongoose.connect("mongodb://localhost:27017/patient-details");
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost:27017/patient-details");
 
 var nameSchema = new mongoose.Schema({
     salution: String,
@@ -29,8 +30,17 @@ var nameSchema = new mongoose.Schema({
 
 var Patient = mongoose.model("Patient", nameSchema);
  
-app.get("/", (req, res) => {
- res.send("Hello World");
+// app.get("/", (req, res) => {
+//  res.send("Hello World");
+// });
+
+app.get("/getPatientDetails", async (req, res) => {
+    const patients = await Patient.find()
+    res.send(patients);
+    // Patient.find({}, function(err, results){
+    //     if(err) res.send(err);
+    //     else res.send(result);
+    // })
 });
 
 app.post("/addPatient", (req, res) => {

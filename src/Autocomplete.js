@@ -10,7 +10,8 @@ class Autocomplete extends Component {
             showSuggestions: false,
             userInput: "",
             data: this.props.data,
-            scanAmount: ""
+            scanAmount: "",
+            addedDiscount: ""
         };
     }
 
@@ -74,9 +75,26 @@ class Autocomplete extends Component {
         }
     };
 
-    onAddClick = e => {
+    onChangeDiscount = e => {
+        this.setState({addedDiscount : e.target.value});
+    }
 
+    onAddClick = e => {
+        var arr = [];
+        var addedRow = {
+            id : 1,
+            medicalBilling : this.state.userInput,
+            amount: this.state.scanAmount,
+            maxDiscount: this.state.addedDiscount,
+            modality: ""
+        }
+        arr.push(addedRow);
+        this.setState({data : arr});
     };
+
+    onDeleteClick = e => {
+        this.setState({data : []});
+    }
 
     render() {
         const {
@@ -84,6 +102,8 @@ class Autocomplete extends Component {
             onClick,
             onKeyDown,
             onAddClick,
+            onDeleteClick,
+            onChangeDiscount,
             state: {
                 activeSuggestion,
                 filteredSuggestions,
@@ -136,8 +156,10 @@ class Autocomplete extends Component {
                 <label htmlFor="scanAmount">Scan Amount</label>
                 <input type="text" value={this.state.scanAmount} disabled/>
                 <label htmlFor="discount">Discount</label>
-                <input type="text" onClick={onAddClick} />
-                <input type="button" value="Add"/>
+                <input type="text" value={this.state.addedDiscount} onChange={onChangeDiscount}/>
+                <input type="button" value="Add" onClick={onAddClick} style={{ marginLeft: 10 }}/>
+                <span> | </span>
+                <input type="button" value="Delete Row" onClick={onDeleteClick}/>
                 <div className="card mt-50">
                     <table className="table">
                         <thead>

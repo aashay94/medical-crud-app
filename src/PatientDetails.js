@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './PatientDetails.css';
 import MedicalTable from "./MedicalTable";
+import ViewAppointment from "./ViewAppointment";
 import Grid from '@material-ui/core/Grid';
 //mockdata
 var medical = [
@@ -107,11 +108,21 @@ class PatientDetails extends Component {
             formErrors["stateErr"] = "State is required.";
         }
 
+        //appointment
         if (!appointment) {
             formIsValid = false;
-            formErrors["appointmentErr"] = "Appointment is required.";
+            formErrors["dobErr"] = "Appointment is required.";
+        }
+        else {
+            var pattern = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+            console.log(appointment);
+            if (!pattern.test(appointment)) {
+                formIsValid = false;
+                formErrors["appointmentErr"] = "Appointment date of birth";
+            }
         }
 
+        //age
         if (!age) {
             formIsValid = false;
             formErrors["ageErr"] = "Age is required.";
@@ -182,7 +193,6 @@ class PatientDetails extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        alert("Hi");
         if (this.handleFormValidation()) {
             let databody = {
                 "salutation": this.state.salutation,
@@ -394,8 +404,9 @@ render() {
                     <MedicalTable medical={this.state.medicalData} >
                     </MedicalTable>
                     <div style={{ textAlign: "center" }}>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Save" />
                     </div>
+                    <ViewAppointment></ViewAppointment>
                 </form>
             </div>
         </div >
